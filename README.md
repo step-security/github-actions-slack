@@ -118,7 +118,7 @@ jobs:
     name: Sends a message to Slack when a push, a pull request or an issue is made
     steps:
       - name: Send message to Slack API
-        uses: step-security/github-actions-slack@v2.0.0
+        uses: step-security/github-actions-slack@v2
         id: notify
         with:
           slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_USER_OAUTH_ACCESS_TOKEN }}
@@ -145,7 +145,7 @@ jobs:
     name: Sends a message to Slack when a push, a pull request or an issue is made
     steps:
       - name: Send message to Slack API
-        uses: step-security/github-actions-slack@v2.0.0
+        uses: step-security/github-actions-slack@v2
         id: notify
         with:
           slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_USER_OAUTH_ACCESS_TOKEN }}
@@ -184,7 +184,7 @@ jobs:
 
     steps:
       - name: Send Slack Message
-        uses: step-security/github-actions-slack@master
+        uses: step-security/github-actions-slack@v2
         id: send-message
 
         with:
@@ -200,7 +200,7 @@ jobs:
         run: echo "..."
 
       - name: Send Thread Message
-        uses: step-security/github-actions-slack@master
+        uses: step-security/github-actions-slack@v2
         with:
           slack-function: send-message
           slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_USER_OAUTH_ACCESS_TOKEN }}
@@ -254,7 +254,7 @@ jobs:
 
     steps:
       - name: Send Slack Message
-        uses: step-security/github-actions-slack@v2.0.0
+        uses: step-security/github-actions-slack@v2
         id: send-message
 
         with:
@@ -270,7 +270,7 @@ jobs:
         run: echo "..."
 
       - name: Send Slack Reaction To Message
-        uses: step-security/github-actions-slack@v2.0.0
+        uses: step-security/github-actions-slack@v2
         with:
           slack-function: send-reaction
           slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_USER_OAUTH_ACCESS_TOKEN }}
