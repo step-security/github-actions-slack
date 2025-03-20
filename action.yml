@@ -1,0 +1,82 @@
+name: "💬 Send Message to Slack 🚀"
+description: "From Github Action to Slack. Easy to use. Supports Slack's optional arguments. Pure JavaScript = Fast."
+branding:
+  icon: "message-circle"
+  color: "orange"
+inputs:
+  slack-bot-user-oauth-access-token:
+    description: "Bot User OAuth Access Token"
+    required: true
+  slack-channel:
+    description: "Channel"
+    required: true
+  slack-text:
+    description: "Text"
+    required: false
+  slack-blocks:
+    description: "Blocks"
+    required: false
+  #slack-optional-as_user: - THIS HAS BEEN DEPRECATED BY SLACK - https://twitter.com/SlackAPI/status/1288171767887024130
+  #  description: "https://api.slack.com/methods/chat.postMessage#arg_as_user"
+  #  required: false
+  slack-optional-attachments:
+    description: "https://api.slack.com/methods/chat.postMessage#arg_attachments"
+    required: false
+  slack-optional-blocks:
+    description: "https://api.slack.com/methods/chat.postMessage#arg_blocks"
+    required: false
+  slack-optional-icon_emoji:
+    description: "https://api.slack.com/methods/chat.postMessage#arg_icon_emoji"
+    required: false
+  slack-optional-icon_url:
+    description: "https://api.slack.com/methods/chat.postMessage#arg_icon_url"
+    required: false
+  slack-optional-link_names:
+    description: "https://api.slack.com/methods/chat.postMessage#arg_link_names"
+    required: false
+  slack-optional-mrkdwn:
+    description: "https://api.slack.com/methods/chat.postMessage#arg_mrkdwn"
+    required: false
+  slack-optional-parse:
+    description: "https://api.slack.com/methods/chat.postMessage#arg_parse"
+    required: false
+  slack-optional-reply_broadcast:
+    description: "https://api.slack.com/methods/chat.postMessage#arg_reply_broadcast"
+    required: false
+  slack-optional-thread_ts:
+    description: "https://api.slack.com/methods/chat.postMessage#arg_thread_ts"
+    required: false
+  slack-optional-unfurl_links:
+    description: "https://api.slack.com/methods/chat.postMessage#arg_unfurl_links"
+    required: false
+  slack-optional-unfurl_media:
+    description: "https://api.slack.com/methods/chat.postMessage#arg_unfurl_media"
+    required: false
+  slack-optional-username:
+    description: "https://api.slack.com/methods/chat.postMessage#arg_username"
+    required: false
+  slack-function:
+    description: send-message (https://api.slack.com/methods/chat.postMessage) or send-reaction (https://api.slack.com/methods/reactions.add) or update-message (https://api.slack.com/methods/chat.update)
+    required: false
+  slack-emoji-name:
+    description: "https://api.slack.com/methods/reactions.add#arg_name"
+    required: false
+  slack-message-timestamp:
+    description: https://api.slack.com/methods/reactions.add#arg_timestamp"
+    required: false
+  slack-update-message-ts:
+    description: https://api.slack.com/methods/chat.update#ts
+    required: false
+  slack-update-message-text:
+    description: https://api.slack.com/methods/chat.update#text
+    required: false
+  slack-update-message-blocks:
+    description: https://api.slack.com/methods/chat.update#blocks
+    required: false
+
+outputs:
+  slack-result:
+    description: "The result from the post to slack"
+runs:
+  using: "node20"
+  main: "dist/index.js"
