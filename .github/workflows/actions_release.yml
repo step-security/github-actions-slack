@@ -9,7 +9,7 @@ on:
       script:
         description: "Specify the build script to run"
         required: false
-        default: "yarn build"
+        default: "npm run build"
 
 permissions:
   contents: read

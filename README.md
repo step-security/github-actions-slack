@@ -114,7 +114,7 @@ on: [push, pull_request, issues]
 
 jobs:
   slack-notifications:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: Sends a message to Slack when a push, a pull request or an issue is made
     steps:
       - name: Send message to Slack API
@@ -141,7 +141,7 @@ on: [push, pull_request, issues]
 
 jobs:
   slack-notification-with-optional-parameters:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: Sends a message to Slack when a push, a pull request or an issue is made
     steps:
       - name: Send message to Slack API
@@ -179,7 +179,7 @@ on: [push, issues]
 
 jobs:
   slack-thread:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: Sends a message to Slack when a push, a pull request or an issue is made
 
     steps:
@@ -249,7 +249,7 @@ on: [push, issues]
 
 jobs:
   slack-reaction:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: Sends a message to Slack when a push, a pull request or an issue is made
 
     steps:
@@ -354,7 +354,7 @@ on: push
 
 jobs:
   one:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Dump GitHub context
         env:
