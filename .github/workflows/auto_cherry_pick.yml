@@ -7,14 +7,10 @@ on:
         description: "Base branch to create the PR against"
         required: true
         default: "main"
-      package_manager:
-        description: "Specify package manager (npm or yarn)"
-        required: false
-        default: "yarn"
       script:
         description: "Specify a script to run after audit fix"
         required: false
-        default: "yarn build"
+        default: "npm run build"
       mode:
         description: "Run mode: cherry-pick or verify"
         required: false
@@ -37,6 +33,6 @@ jobs:
       repo-name: "github-actions-slack"
       base_branch: ${{ inputs.base_branch }}
       package_manager: "yarn"
-      script: ${{ inputs.script || 'yarn build' }}
+      script: ${{ inputs.script || 'npm run build' }}
       mode: ${{ github.event_name == 'pull_request' && 'verify' || inputs.mode }}
 
