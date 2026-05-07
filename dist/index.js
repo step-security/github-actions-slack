@@ -35766,53 +35766,73 @@ module.exports = {
 /***/ }),
 
 /***/ 4270:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
-const core = __nccwpck_require__(7484);
+"use strict";
+__nccwpck_require__.r(__webpack_exports__);
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   debug: () => (/* binding */ debug),
+/* harmony export */   debugExtra: () => (/* binding */ debugExtra),
+/* harmony export */   getEnv: () => (/* binding */ getEnv),
+/* harmony export */   getOptional: () => (/* binding */ getOptional),
+/* harmony export */   getRequired: () => (/* binding */ getRequired),
+/* harmony export */   info: () => (/* binding */ info),
+/* harmony export */   setFailed: () => (/* binding */ setFailed),
+/* harmony export */   setOutput: () => (/* binding */ setOutput),
+/* harmony export */   warning: () => (/* binding */ warning)
+/* harmony export */ });
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(7484);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
 
-const getRequired = (name) => core.getInput(name, { required: true });
 
-const getOptional = (name) => core.getInput(name, { required: false });
+const getRequired = (name) => _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput(name, { required: true });
+
+const getOptional = (name) => _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput(name, { required: false });
 
 const getEnv = () => process.env;
 
-const setOutput = (name, value) => core.setOutput(name, value);
+const setOutput = (name, value) => _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput(name, value);
 
-const setFailed = (msg) => core.setFailed(msg);
+const setFailed = (msg) => _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(msg);
 
-const debug = (msg) => core.debug(msg);
+const debug = (msg) => _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug(msg);
 
 const debugExtra = (name, json) => {
-  core.debug("CUSTOM DEBUG " + name);
+  _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug("CUSTOM DEBUG " + name);
 
   const message = JSON.stringify(json, undefined, 2);
-  core.debug(message);
+  _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug(message);
 };
 
-const info = (msg) => core.info(msg);
+const info = (msg) => _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(msg);
 
-const warning = (msg) => core.warning(msg);
+const warning = (msg) => _actions_core__WEBPACK_IMPORTED_MODULE_0__.warning(msg);
 
-module.exports = {
-  getRequired,
-  getOptional,
-  getEnv,
-  setOutput,
-  setFailed,
-  debug,
-  debugExtra,
-  info,
-  warning,
-};
+
 
 
 /***/ }),
 
-/***/ 6920:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ 9039:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
-const https = __nccwpck_require__(5692);
-const context = __nccwpck_require__(4270);
+"use strict";
+
+// EXPORTS
+__nccwpck_require__.d(__webpack_exports__, {
+  Hv: () => (/* binding */ apiAddReaction),
+  _Q: () => (/* binding */ apiPostMessage),
+  Fq: () => (/* binding */ apiUpdateMessage)
+});
+
+// EXTERNAL MODULE: external "https"
+var external_https_ = __nccwpck_require__(5692);
+var external_https_default = /*#__PURE__*/__nccwpck_require__.n(external_https_);
+// EXTERNAL MODULE: ./src/context.js
+var context = __nccwpck_require__(4270);
+;// CONCATENATED MODULE: ./src/integration/slack-api-post.js
+
+
 
 const getOptions = (token, path) => {
   return {
@@ -35835,7 +35855,7 @@ const post = (token, path, message) => {
 
     const options = getOptions(token, path);
 
-    const req = https.request(options, (res) => {
+    const req = external_https_default().request(options, (res) => {
       const chunks = [];
 
       res.on("data", (chunk) => {
@@ -35877,15 +35897,10 @@ const post = (token, path, message) => {
   });
 };
 
-module.exports = { post };
 
 
-/***/ }),
+;// CONCATENATED MODULE: ./src/integration/slack-api.js
 
-/***/ 8337:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const { post } = __nccwpck_require__(6920);
 
 const hasErrors = (res) => !res || !res.ok;
 
@@ -35926,7 +35941,7 @@ const apiUpdateMessage = async (token, message) => {
   return res;
 };
 
-module.exports = { apiPostMessage, apiAddReaction, apiUpdateMessage };
+
 
 
 /***/ }),
@@ -35938,9 +35953,9 @@ const axios = __nccwpck_require__(7269);
 const fs = __nccwpck_require__(9896);
 const core = __nccwpck_require__(7484);
 const context = __nccwpck_require__(4270);
-const { postMessage } = __nccwpck_require__(57);
-const { addReaction } = __nccwpck_require__(8725);
-const { updateMessage } = __nccwpck_require__(4217);
+const { postMessage } = __nccwpck_require__(3375);
+const { addReaction } = __nccwpck_require__(5461);
+const { updateMessage } = __nccwpck_require__(1197);
 
 const jsonPretty = (data) => JSON.stringify(data, undefined, 2);
 
@@ -36020,13 +36035,26 @@ module.exports = invoke;
 
 /***/ }),
 
-/***/ 5771:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ 3375:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
-const {
-  restoreEscapedNewLine,
-  restoreEscapedTab,
-} = __nccwpck_require__(4637);
+"use strict";
+// ESM COMPAT FLAG
+__nccwpck_require__.r(__webpack_exports__);
+
+// EXPORTS
+__nccwpck_require__.d(__webpack_exports__, {
+  postMessage: () => (/* binding */ postMessage)
+});
+
+// EXTERNAL MODULE: ./src/context.js
+var context = __nccwpck_require__(4270);
+// EXTERNAL MODULE: ./src/integration/slack-api.js + 1 modules
+var slack_api = __nccwpck_require__(9039);
+// EXTERNAL MODULE: ./src/util/escaper.js
+var escaper = __nccwpck_require__(4637);
+;// CONCATENATED MODULE: ./src/message/build-message.js
+
 
 const buildMessage = (channel = "", text = "", blocks = "", optional = {}) => {
   if (!channel) {
@@ -36044,8 +36072,8 @@ const buildMessage = (channel = "", text = "", blocks = "", optional = {}) => {
       text,
     };
 
-    message.text = restoreEscapedNewLine(message.text);
-    message.text = restoreEscapedTab(message.text);
+    message.text = (0,escaper/* restoreEscapedNewLine */.k)(message.text);
+    message.text = (0,escaper/* restoreEscapedTab */.F)(message.text);
   } else {
     message = {
       channel,
@@ -36060,19 +36088,18 @@ const buildMessage = (channel = "", text = "", blocks = "", optional = {}) => {
   return message;
 };
 
-module.exports = buildMessage;
+/* harmony default export */ const build_message = (buildMessage);
+
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __nccwpck_require__(7484);
+// EXTERNAL MODULE: ./src/util/optional.js
+var optional = __nccwpck_require__(9552);
+;// CONCATENATED MODULE: ./src/message/index.js
 
 
-/***/ }),
 
-/***/ 57:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const context = __nccwpck_require__(4270);
-const { apiPostMessage } = __nccwpck_require__(8337);
-const buildMessage = __nccwpck_require__(5771);
-const core = __nccwpck_require__(7484);
-const { optional } = __nccwpck_require__(9552);
+
 
 const jsonPretty = (data) => JSON.stringify(data, undefined, 2);
 
@@ -36087,10 +36114,10 @@ const postMessage = async () => {
     for (let channel of channels.split(",")) {
       channel = channel.trim();
 
-      const payload = buildMessage(channel, text, blocks, optional());
+      const payload = build_message(channel, text, blocks, (0,optional/* optional */.l)());
 
       context.debug("Post Message PAYLOAD", payload);
-      const result = await apiPostMessage(token, payload);
+      const result = await (0,slack_api/* apiPostMessage */._Q)(token, payload);
       context.debug("Post Message RESULT", result);
 
       results.push(result);
@@ -36107,14 +36134,28 @@ const postMessage = async () => {
   }
 };
 
-module.exports = { postMessage };
+
 
 
 /***/ }),
 
-/***/ 2609:
-/***/ ((module) => {
+/***/ 5461:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
+"use strict";
+// ESM COMPAT FLAG
+__nccwpck_require__.r(__webpack_exports__);
+
+// EXPORTS
+__nccwpck_require__.d(__webpack_exports__, {
+  addReaction: () => (/* binding */ addReaction)
+});
+
+// EXTERNAL MODULE: ./src/context.js
+var context = __nccwpck_require__(4270);
+// EXTERNAL MODULE: ./src/integration/slack-api.js + 1 modules
+var slack_api = __nccwpck_require__(9039);
+;// CONCATENATED MODULE: ./src/reaction/build-reaction.js
 const buildReaction = (
   channelId = "",
   emojiName = "",
@@ -36129,17 +36170,12 @@ const buildReaction = (
   return message;
 };
 
-module.exports = buildReaction;
+/* harmony default export */ const build_reaction = (buildReaction);
+
+;// CONCATENATED MODULE: ./src/reaction/index.js
 
 
-/***/ }),
 
-/***/ 8725:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const context = __nccwpck_require__(4270);
-const { apiAddReaction } = __nccwpck_require__(8337);
-const buildMessage = __nccwpck_require__(2609);
 
 const jsonPretty = (data) => JSON.stringify(data, undefined, 2);
 
@@ -36150,10 +36186,10 @@ const addReaction = async () => {
     const emojiName = context.getRequired("slack-emoji-name");
     const messageTimestamp = context.getRequired("slack-message-timestamp");
 
-    const payload = buildMessage(channelId, emojiName, messageTimestamp);
+    const payload = build_reaction(channelId, emojiName, messageTimestamp);
 
     context.debugExtra("Add Reaction PAYLOAD", payload);
-    const result = await apiAddReaction(token, payload);
+    const result = await (0,slack_api/* apiAddReaction */.Hv)(token, payload);
     context.debugExtra("Add Reaction PAYLOAD", result);
 
     const resultAsJson = jsonPretty(result);
@@ -36163,18 +36199,31 @@ const addReaction = async () => {
   }
 };
 
-module.exports = { addReaction };
+
 
 
 /***/ }),
 
-/***/ 5909:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ 1197:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
-const {
-  restoreEscapedNewLine,
-  restoreEscapedTab,
-} = __nccwpck_require__(4637);
+"use strict";
+// ESM COMPAT FLAG
+__nccwpck_require__.r(__webpack_exports__);
+
+// EXPORTS
+__nccwpck_require__.d(__webpack_exports__, {
+  updateMessage: () => (/* binding */ updateMessage)
+});
+
+// EXTERNAL MODULE: ./src/context.js
+var context = __nccwpck_require__(4270);
+// EXTERNAL MODULE: ./src/integration/slack-api.js + 1 modules
+var slack_api = __nccwpck_require__(9039);
+// EXTERNAL MODULE: ./src/util/escaper.js
+var escaper = __nccwpck_require__(4637);
+;// CONCATENATED MODULE: ./src/update-message/build-update-message.js
+
 
 const buildMessage = (
   channel = "",
@@ -36199,8 +36248,8 @@ const buildMessage = (
       ts,
     };
 
-    message.text = restoreEscapedNewLine(message.text);
-    message.text = restoreEscapedTab(message.text);
+    message.text = (0,escaper/* restoreEscapedNewLine */.k)(message.text);
+    message.text = (0,escaper/* restoreEscapedTab */.F)(message.text);
   } else {
     message = {
       channel,
@@ -36216,18 +36265,15 @@ const buildMessage = (
   return message;
 };
 
-module.exports = buildMessage;
+/* harmony default export */ const build_update_message = (buildMessage);
+
+// EXTERNAL MODULE: ./src/util/optional.js
+var optional = __nccwpck_require__(9552);
+;// CONCATENATED MODULE: ./src/update-message/index.js
 
 
-/***/ }),
 
-/***/ 4217:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const context = __nccwpck_require__(4270);
-const { apiUpdateMessage } = __nccwpck_require__(8337);
-const buildUpdateMessage = __nccwpck_require__(5909);
-const { optional } = __nccwpck_require__(9552);
 
 const jsonPretty = (data) => JSON.stringify(data, undefined, 2);
 
@@ -36239,10 +36285,10 @@ const updateMessage = async () => {
     const text = context.getOptional("slack-update-message-text");
     const blocks = context.getOptional("slack-update-message-blocks");
 
-    const payload = buildUpdateMessage(channelId, text, blocks, ts, optional());
+    const payload = build_update_message(channelId, text, blocks, ts, (0,optional/* optional */.l)());
 
     context.debugExtra("Update Message PAYLOAD", payload);
-    const result = await apiUpdateMessage(token, payload);
+    const result = await (0,slack_api/* apiUpdateMessage */.Fq)(token, payload);
     context.debug("Update Message RESULT", result);
 
     const resultAsJson = jsonPretty(result);
@@ -36253,33 +36299,43 @@ const updateMessage = async () => {
   }
 };
 
-module.exports = { updateMessage };
+
 
 
 /***/ }),
 
 /***/ 4637:
-/***/ ((module) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
+"use strict";
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   F: () => (/* binding */ restoreEscapedTab),
+/* harmony export */   k: () => (/* binding */ restoreEscapedNewLine)
+/* harmony export */ });
 const restoreEscapedNewLine = (text) =>
   text.replace(/\\r\\n/g, "\n").replace(/\\n/g, "\n");
 
 const restoreEscapedTab = (text) => text.replace(/\\t/g, "\t");
 
-module.exports = { restoreEscapedNewLine, restoreEscapedTab };
+
 
 
 /***/ }),
 
 /***/ 9552:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
-const context = __nccwpck_require__(4270);
+"use strict";
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   l: () => (/* binding */ optional)
+/* harmony export */ });
+/* harmony import */ var _context_js__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(4270);
+
 
 const optional = () => {
   let opt = {};
 
-  const env = context.getEnv();
+  const env = _context_js__WEBPACK_IMPORTED_MODULE_0__.getEnv();
   Object.keys(env)
     .filter((key) => !!env[key])
     .filter((key) => key.toUpperCase().startsWith("INPUT_SLACK-OPTIONAL-"))
@@ -36291,7 +36347,7 @@ const optional = () => {
   return opt;
 };
 
-module.exports = { optional };
+
 
 
 /***/ }),
@@ -41354,19 +41410,67 @@ module.exports = /*#__PURE__*/JSON.parse('{"application/1d-interleaved-parityfec
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__nccwpck_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nccwpck_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__nccwpck_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-const invoke = __nccwpck_require__(6325);
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+__nccwpck_require__.r(__webpack_exports__);
+/* harmony import */ var _src_invoke_js__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(6325);
+/* harmony import */ var _src_invoke_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_src_invoke_js__WEBPACK_IMPORTED_MODULE_0__);
+
 
 const run = async () => {
-  await invoke();
+  await _src_invoke_js__WEBPACK_IMPORTED_MODULE_0___default()();
 };
 
 run();
+
+})();
 
 module.exports = __webpack_exports__;
 /******/ })()
