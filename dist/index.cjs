@@ -8875,11 +8875,11 @@ var require_mime_types = __commonJS({
       }
       return exts[0];
     }
-    function lookup(path) {
-      if (!path || typeof path !== "string") {
+    function lookup(path2) {
+      if (!path2 || typeof path2 !== "string") {
         return false;
       }
-      var extension2 = extname("x." + path).toLowerCase().substr(1);
+      var extension2 = extname("x." + path2).toLowerCase().substr(1);
       if (!extension2) {
         return false;
       }
@@ -9984,11 +9984,11 @@ var require_form_data = __commonJS({
     "use strict";
     var CombinedStream = require_combined_stream();
     var util3 = require("util");
-    var path = require("path");
+    var path2 = require("path");
     var http3 = require("http");
     var https3 = require("https");
     var parseUrl2 = require("url").parse;
-    var fs4 = require("fs");
+    var fs5 = require("fs");
     var Stream = require("stream").Stream;
     var crypto3 = require("crypto");
     var mime = require_mime_types();
@@ -10055,7 +10055,7 @@ var require_form_data = __commonJS({
         if (value.end != void 0 && value.end != Infinity && value.start != void 0) {
           callback(null, value.end + 1 - (value.start ? value.start : 0));
         } else {
-          fs4.stat(value.path, function(err, stat2) {
+          fs5.stat(value.path, function(err, stat2) {
             if (err) {
               callback(err);
               return;
@@ -10112,11 +10112,11 @@ var require_form_data = __commonJS({
     FormData3.prototype._getContentDisposition = function(value, options) {
       var filename;
       if (typeof options.filepath === "string") {
-        filename = path.normalize(options.filepath).replace(/\\/g, "/");
+        filename = path2.normalize(options.filepath).replace(/\\/g, "/");
       } else if (options.filename || value && (value.name || value.path)) {
-        filename = path.basename(options.filename || value && (value.name || value.path));
+        filename = path2.basename(options.filename || value && (value.name || value.path));
       } else if (value && value.readable && hasOwn(value, "httpVersion")) {
-        filename = path.basename(value.client._httpMessage.path || "");
+        filename = path2.basename(value.client._httpMessage.path || "");
       }
       if (filename) {
         return 'filename="' + filename + '"';
@@ -12615,14 +12615,14 @@ var require_util = __commonJS({
         }
         const port = url2.port != null ? url2.port : url2.protocol === "https:" ? 443 : 80;
         let origin2 = url2.origin != null ? url2.origin : `${url2.protocol || ""}//${url2.hostname || ""}:${port}`;
-        let path = url2.path != null ? url2.path : `${url2.pathname || ""}${url2.search || ""}`;
+        let path2 = url2.path != null ? url2.path : `${url2.pathname || ""}${url2.search || ""}`;
         if (origin2[origin2.length - 1] === "/") {
           origin2 = origin2.slice(0, origin2.length - 1);
         }
-        if (path && path[0] !== "/") {
-          path = `/${path}`;
+        if (path2 && path2[0] !== "/") {
+          path2 = `/${path2}`;
         }
-        return new URL(`${origin2}${path}`);
+        return new URL(`${origin2}${path2}`);
       }
       if (!isHttpOrHttpsPrefixed(url2.origin || url2.protocol)) {
         throw new InvalidArgumentError("Invalid URL protocol: the URL must start with `http:` or `https:`.");
@@ -13073,39 +13073,39 @@ var require_diagnostics = __commonJS({
       });
       diagnosticsChannel.channel("undici:client:sendHeaders").subscribe((evt) => {
         const {
-          request: { method, path, origin: origin2 }
+          request: { method, path: path2, origin: origin2 }
         } = evt;
-        debuglog("sending request to %s %s/%s", method, origin2, path);
+        debuglog("sending request to %s %s/%s", method, origin2, path2);
       });
       diagnosticsChannel.channel("undici:request:headers").subscribe((evt) => {
         const {
-          request: { method, path, origin: origin2 },
+          request: { method, path: path2, origin: origin2 },
           response: { statusCode }
         } = evt;
         debuglog(
           "received response to %s %s/%s - HTTP %d",
           method,
           origin2,
-          path,
+          path2,
           statusCode
         );
       });
       diagnosticsChannel.channel("undici:request:trailers").subscribe((evt) => {
         const {
-          request: { method, path, origin: origin2 }
+          request: { method, path: path2, origin: origin2 }
         } = evt;
-        debuglog("trailers received from %s %s/%s", method, origin2, path);
+        debuglog("trailers received from %s %s/%s", method, origin2, path2);
       });
       diagnosticsChannel.channel("undici:request:error").subscribe((evt) => {
         const {
-          request: { method, path, origin: origin2 },
+          request: { method, path: path2, origin: origin2 },
           error: error2
         } = evt;
         debuglog(
           "request to %s %s/%s errored - %s",
           method,
           origin2,
-          path,
+          path2,
           error2.message
         );
       });
@@ -13154,9 +13154,9 @@ var require_diagnostics = __commonJS({
         });
         diagnosticsChannel.channel("undici:client:sendHeaders").subscribe((evt) => {
           const {
-            request: { method, path, origin: origin2 }
+            request: { method, path: path2, origin: origin2 }
           } = evt;
-          debuglog("sending request to %s %s/%s", method, origin2, path);
+          debuglog("sending request to %s %s/%s", method, origin2, path2);
         });
       }
       diagnosticsChannel.channel("undici:websocket:open").subscribe((evt) => {
@@ -13219,7 +13219,7 @@ var require_request = __commonJS({
     var kHandler = /* @__PURE__ */ Symbol("handler");
     var Request = class {
       constructor(origin2, {
-        path,
+        path: path2,
         method,
         body,
         headers,
@@ -13234,11 +13234,11 @@ var require_request = __commonJS({
         expectContinue,
         servername
       }, handler) {
-        if (typeof path !== "string") {
+        if (typeof path2 !== "string") {
           throw new InvalidArgumentError("path must be a string");
-        } else if (path[0] !== "/" && !(path.startsWith("http://") || path.startsWith("https://")) && method !== "CONNECT") {
+        } else if (path2[0] !== "/" && !(path2.startsWith("http://") || path2.startsWith("https://")) && method !== "CONNECT") {
           throw new InvalidArgumentError("path must be an absolute URL or start with a slash");
-        } else if (invalidPathRegex.test(path)) {
+        } else if (invalidPathRegex.test(path2)) {
           throw new InvalidArgumentError("invalid request path");
         }
         if (typeof method !== "string") {
@@ -13304,7 +13304,7 @@ var require_request = __commonJS({
         this.completed = false;
         this.aborted = false;
         this.upgrade = upgrade || null;
-        this.path = query ? buildURL2(path, query) : path;
+        this.path = query ? buildURL2(path2, query) : path2;
         this.origin = origin2;
         this.idempotent = idempotent == null ? method === "HEAD" || method === "GET" : idempotent;
         this.blocking = blocking == null ? false : blocking;
@@ -17830,7 +17830,7 @@ var require_client_h1 = __commonJS({
       return method !== "GET" && method !== "HEAD" && method !== "OPTIONS" && method !== "TRACE" && method !== "CONNECT";
     }
     function writeH1(client, request) {
-      const { method, path, host, upgrade, blocking, reset } = request;
+      const { method, path: path2, host, upgrade, blocking, reset } = request;
       let { body, headers, contentLength } = request;
       const expectsPayload = method === "PUT" || method === "POST" || method === "PATCH" || method === "QUERY" || method === "PROPFIND" || method === "PROPPATCH";
       if (util3.isFormDataLike(body)) {
@@ -17896,7 +17896,7 @@ var require_client_h1 = __commonJS({
       if (blocking) {
         socket[kBlocking] = true;
       }
-      let header = `${method} ${path} HTTP/1.1\r
+      let header = `${method} ${path2} HTTP/1.1\r
 `;
       if (typeof host === "string") {
         header += `host: ${host}\r
@@ -18422,7 +18422,7 @@ var require_client_h2 = __commonJS({
     }
     function writeH2(client, request) {
       const session = client[kHTTP2Session];
-      const { method, path, host, upgrade, expectContinue, signal, headers: reqHeaders } = request;
+      const { method, path: path2, host, upgrade, expectContinue, signal, headers: reqHeaders } = request;
       let { body } = request;
       if (upgrade) {
         util3.errorRequest(client, request, new Error("Upgrade not supported for H2"));
@@ -18489,7 +18489,7 @@ var require_client_h2 = __commonJS({
         });
         return true;
       }
-      headers[HTTP2_HEADER_PATH] = path;
+      headers[HTTP2_HEADER_PATH] = path2;
       headers[HTTP2_HEADER_SCHEME] = "https";
       const expectsPayload = method === "PUT" || method === "POST" || method === "PATCH";
       if (body && typeof body.read === "function") {
@@ -18842,9 +18842,9 @@ var require_redirect_handler = __commonJS({
           return this.handler.onHeaders(statusCode, headers, resume, statusText);
         }
         const { origin: origin2, pathname, search } = util3.parseURL(new URL(this.location, this.opts.origin && new URL(this.opts.path, this.opts.origin)));
-        const path = search ? `${pathname}${search}` : pathname;
+        const path2 = search ? `${pathname}${search}` : pathname;
         this.opts.headers = cleanRequestHeaders(this.opts.headers, statusCode === 303, this.opts.origin !== origin2);
-        this.opts.path = path;
+        this.opts.path = path2;
         this.opts.origin = origin2;
         this.opts.maxRedirections = 0;
         this.opts.query = null;
@@ -20079,10 +20079,10 @@ var require_proxy_agent = __commonJS({
         };
         const {
           origin: origin2,
-          path = "/",
+          path: path2 = "/",
           headers = {}
         } = opts;
-        opts.path = origin2 + path;
+        opts.path = origin2 + path2;
         if (!("host" in headers) && !("Host" in headers)) {
           const { host } = new URL2(origin2);
           headers.host = host;
@@ -22003,20 +22003,20 @@ var require_mock_utils = __commonJS({
       }
       return true;
     }
-    function safeUrl(path) {
-      if (typeof path !== "string") {
-        return path;
+    function safeUrl(path2) {
+      if (typeof path2 !== "string") {
+        return path2;
       }
-      const pathSegments = path.split("?");
+      const pathSegments = path2.split("?");
       if (pathSegments.length !== 2) {
-        return path;
+        return path2;
       }
       const qp = new URLSearchParams(pathSegments.pop());
       qp.sort();
       return [...pathSegments, qp.toString()].join("?");
     }
-    function matchKey(mockDispatch2, { path, method, body, headers }) {
-      const pathMatch = matchValue(mockDispatch2.path, path);
+    function matchKey(mockDispatch2, { path: path2, method, body, headers }) {
+      const pathMatch = matchValue(mockDispatch2.path, path2);
       const methodMatch = matchValue(mockDispatch2.method, method);
       const bodyMatch = typeof mockDispatch2.body !== "undefined" ? matchValue(mockDispatch2.body, body) : true;
       const headersMatch = matchHeaders(mockDispatch2, headers);
@@ -22038,7 +22038,7 @@ var require_mock_utils = __commonJS({
     function getMockDispatch(mockDispatches, key) {
       const basePath = key.query ? buildURL2(key.path, key.query) : key.path;
       const resolvedPath = typeof basePath === "string" ? safeUrl(basePath) : basePath;
-      let matchedMockDispatches = mockDispatches.filter(({ consumed }) => !consumed).filter(({ path }) => matchValue(safeUrl(path), resolvedPath));
+      let matchedMockDispatches = mockDispatches.filter(({ consumed }) => !consumed).filter(({ path: path2 }) => matchValue(safeUrl(path2), resolvedPath));
       if (matchedMockDispatches.length === 0) {
         throw new MockNotMatchedError(`Mock dispatch not matched for path '${resolvedPath}'`);
       }
@@ -22076,9 +22076,9 @@ var require_mock_utils = __commonJS({
       }
     }
     function buildKey(opts) {
-      const { path, method, body, headers, query } = opts;
+      const { path: path2, method, body, headers, query } = opts;
       return {
-        path,
+        path: path2,
         method,
         body,
         headers,
@@ -22541,10 +22541,10 @@ var require_pending_interceptors_formatter = __commonJS({
       }
       format(pendingInterceptors) {
         const withPrettyHeaders = pendingInterceptors.map(
-          ({ method, path, data: { statusCode }, persist, times, timesInvoked, origin: origin2 }) => ({
+          ({ method, path: path2, data: { statusCode }, persist, times, timesInvoked, origin: origin2 }) => ({
             Method: method,
             Origin: origin2,
-            Path: path,
+            Path: path2,
             "Status code": statusCode,
             Persistent: persist ? PERSISTENT : NOT_PERSISTENT,
             Invocations: timesInvoked,
@@ -27425,9 +27425,9 @@ var require_util6 = __commonJS({
         }
       }
     }
-    function validateCookiePath(path) {
-      for (let i = 0; i < path.length; ++i) {
-        const code = path.charCodeAt(i);
+    function validateCookiePath(path2) {
+      for (let i = 0; i < path2.length; ++i) {
+        const code = path2.charCodeAt(i);
         if (code < 32 || // exclude CTLs (0-31)
         code === 127 || // DEL
         code === 59) {
@@ -30104,11 +30104,11 @@ var require_undici = __commonJS({
           if (typeof opts.path !== "string") {
             throw new InvalidArgumentError("invalid opts.path");
           }
-          let path = opts.path;
+          let path2 = opts.path;
           if (!opts.path.startsWith("/")) {
-            path = `/${path}`;
+            path2 = `/${path2}`;
           }
-          url2 = new URL(util3.parseOrigin(url2).origin + path);
+          url2 = new URL(util3.parseOrigin(url2).origin + path2);
         } else {
           if (!opts) {
             opts = typeof url2 === "object" ? url2 : {};
@@ -30699,9 +30699,9 @@ function isVisitable(thing) {
 function removeBrackets(key) {
   return utils_default.endsWith(key, "[]") ? key.slice(0, -2) : key;
 }
-function renderKey(path, key, dots) {
-  if (!path) return key;
-  return path.concat(key).map(function each(token, i) {
+function renderKey(path2, key, dots) {
+  if (!path2) return key;
+  return path2.concat(key).map(function each(token, i) {
     token = removeBrackets(token);
     return !dots && i ? "[" + token + "]" : token;
   }).join(dots ? "." : "");
@@ -30754,13 +30754,13 @@ function toFormData(obj, formData, options) {
     }
     return value;
   }
-  function defaultVisitor(value, key, path) {
+  function defaultVisitor(value, key, path2) {
     let arr = value;
     if (utils_default.isReactNative(formData) && utils_default.isReactNativeBlob(value)) {
-      formData.append(renderKey(path, key, dots), convertValue(value));
+      formData.append(renderKey(path2, key, dots), convertValue(value));
       return false;
     }
-    if (value && !path && typeof value === "object") {
+    if (value && !path2 && typeof value === "object") {
       if (utils_default.endsWith(key, "{}")) {
         key = metaTokens ? key : key.slice(0, -2);
         value = JSON.stringify(value);
@@ -30779,7 +30779,7 @@ function toFormData(obj, formData, options) {
     if (isVisitable(value)) {
       return true;
     }
-    formData.append(renderKey(path, key, dots), convertValue(value));
+    formData.append(renderKey(path2, key, dots), convertValue(value));
     return false;
   }
   const stack = [];
@@ -30788,16 +30788,16 @@ function toFormData(obj, formData, options) {
     convertValue,
     isVisitable
   });
-  function build(value, path) {
+  function build(value, path2) {
     if (utils_default.isUndefined(value)) return;
     if (stack.indexOf(value) !== -1) {
-      throw Error("Circular reference detected in " + path.join("."));
+      throw Error("Circular reference detected in " + path2.join("."));
     }
     stack.push(value);
     utils_default.forEach(value, function each(el, key) {
-      const result = !(utils_default.isUndefined(el) || el === null) && visitor.call(formData, el, utils_default.isString(key) ? key.trim() : key, path, exposedHelpers);
+      const result = !(utils_default.isUndefined(el) || el === null) && visitor.call(formData, el, utils_default.isString(key) ? key.trim() : key, path2, exposedHelpers);
       if (result === true) {
-        build(el, path ? path.concat(key) : [key]);
+        build(el, path2 ? path2.concat(key) : [key]);
       }
     });
     stack.pop();
@@ -31009,7 +31009,7 @@ var platform_default = {
 // node_modules/axios/lib/helpers/toURLEncodedForm.js
 function toURLEncodedForm(data, options) {
   return toFormData_default(data, new platform_default.classes.URLSearchParams(), {
-    visitor: function(value, key, path, helpers) {
+    visitor: function(value, key, path2, helpers) {
       if (platform_default.isNode && utils_default.isBuffer(value)) {
         this.append(key, value.toString("base64"));
         return false;
@@ -31039,11 +31039,11 @@ function arrayToObject(arr) {
   return obj;
 }
 function formDataToJSON(formData) {
-  function buildPath(path, value, target, index) {
-    let name = path[index++];
+  function buildPath(path2, value, target, index) {
+    let name = path2[index++];
     if (name === "__proto__") return true;
     const isNumericKey = Number.isFinite(+name);
-    const isLast = index >= path.length;
+    const isLast = index >= path2.length;
     name = !name && utils_default.isArray(target) ? target.length : name;
     if (isLast) {
       if (utils_default.hasOwnProp(target, name)) {
@@ -31056,7 +31056,7 @@ function formDataToJSON(formData) {
     if (!target[name] || !utils_default.isObject(target[name])) {
       target[name] = [];
     }
-    const result = buildPath(path, value, target[name], index);
+    const result = buildPath(path2, value, target[name], index);
     if (result && utils_default.isArray(target[name])) {
       target[name] = arrayToObject(target[name]);
     }
@@ -32506,9 +32506,9 @@ var http_default = isHttpAdapterSupported && function httpAdapter(config) {
       auth = urlUsername + ":" + urlPassword;
     }
     auth && headers.delete("authorization");
-    let path;
+    let path2;
     try {
-      path = buildURL(
+      path2 = buildURL(
         parsed.pathname + parsed.search,
         config.params,
         config.paramsSerializer
@@ -32526,7 +32526,7 @@ var http_default = isHttpAdapterSupported && function httpAdapter(config) {
       false
     );
     const options = {
-      path,
+      path: path2,
       method,
       headers: headers.toJSON(),
       agents: { http: config.httpAgent, https: config.httpsAgent },
@@ -32775,14 +32775,14 @@ var isURLSameOrigin_default = platform_default.hasStandardBrowserEnv ? /* @__PUR
 var cookies_default = platform_default.hasStandardBrowserEnv ? (
   // Standard browser envs support document.cookie
   {
-    write(name, value, expires, path, domain, secure, sameSite) {
+    write(name, value, expires, path2, domain, secure, sameSite) {
       if (typeof document === "undefined") return;
       const cookie = [`${name}=${encodeURIComponent(value)}`];
       if (utils_default.isNumber(expires)) {
         cookie.push(`expires=${new Date(expires).toUTCString()}`);
       }
-      if (utils_default.isString(path)) {
-        cookie.push(`path=${path}`);
+      if (utils_default.isString(path2)) {
+        cookie.push(`path=${path2}`);
       }
       if (utils_default.isString(domain)) {
         cookie.push(`domain=${domain}`);
@@ -34028,7 +34028,7 @@ var {
 } = axios_default;
 
 // src/invoke.js
-var import_fs2 = __toESM(require("fs"), 1);
+var import_fs3 = __toESM(require("fs"), 1);
 
 // node_modules/@actions/core/lib/command.js
 var os = __toESM(require("os"), 1);
@@ -34538,13 +34538,18 @@ var debugExtra = (name, json) => {
   debug(message);
 };
 
+// src/integration/slack-api.js
+var import_fs2 = __toESM(require("fs"), 1);
+var import_path = __toESM(require("path"), 1);
+
 // src/integration/slack-api-post.js
 var import_https2 = __toESM(require("https"), 1);
-var getOptions = (token, path) => {
+var ALLOWED_UPLOAD_HOSTS = /* @__PURE__ */ new Set(["files.slack.com"]);
+var getOptions = (token, path2) => {
   return {
     hostname: "slack.com",
     port: 443,
-    path,
+    path: path2,
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
@@ -34552,11 +34557,11 @@ var getOptions = (token, path) => {
     }
   };
 };
-var post = (token, path, message) => {
+var post = (token, path2, message) => {
   return new Promise((resolve, reject) => {
     const payload = JSON.stringify(message);
     debugExtra("SLACK POST PAYLOAD", payload);
-    const options = getOptions(token, path);
+    const options = getOptions(token, path2);
     const req = import_https2.default.request(options, (res) => {
       const chunks = [];
       res.on("data", (chunk) => {
@@ -34585,35 +34590,192 @@ var post = (token, path, message) => {
     req.end();
   });
 };
+var postForm = (token, path2, fields) => {
+  return new Promise((resolve, reject) => {
+    const payload = new URLSearchParams(fields).toString();
+    debugExtra("SLACK POST FORM PAYLOAD", payload);
+    const options = {
+      hostname: "slack.com",
+      port: 443,
+      path: path2,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": Buffer.byteLength(payload),
+        Authorization: `Bearer ${token}`
+      }
+    };
+    const req = import_https2.default.request(options, (res) => {
+      const chunks = [];
+      res.on("data", (chunk) => {
+        chunks.push(chunk);
+      });
+      res.on("end", () => {
+        const result = Buffer.concat(chunks).toString();
+        const response = JSON.parse(result);
+        let isOk = res.statusCode >= 200 && res.statusCode <= 299;
+        if (response && response.hasOwnProperty("ok") && response.ok === false) {
+          isOk = false;
+        }
+        resolve({
+          statusCode: res.statusCode,
+          statusMessage: res.statusMessage,
+          ok: isOk,
+          result,
+          response
+        });
+      });
+    });
+    req.on("error", (error2) => {
+      reject(error2);
+    });
+    req.write(payload);
+    req.end();
+  });
+};
+var validateUploadUrl = (uploadUrl) => {
+  const url2 = new URL(uploadUrl);
+  if (url2.protocol !== "https:") {
+    throw new Error("Upload URL must use https");
+  }
+  if (!ALLOWED_UPLOAD_HOSTS.has(url2.hostname)) {
+    throw new Error(`Upload host not allowed: ${url2.hostname}`);
+  }
+  return url2;
+};
+var postBinary = (uploadUrl, fileContent) => {
+  return new Promise((resolve, reject) => {
+    const url2 = validateUploadUrl(uploadUrl);
+    const options = {
+      hostname: url2.hostname,
+      port: 443,
+      path: url2.pathname + url2.search,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/octet-stream",
+        "Content-Length": fileContent.length
+      }
+    };
+    debug2("SLACK UPLOAD BINARY to " + url2.hostname + url2.pathname);
+    const req = import_https2.default.request(options, (res) => {
+      const chunks = [];
+      res.on("data", (chunk) => {
+        chunks.push(chunk);
+      });
+      res.on("end", () => {
+        resolve({
+          statusCode: res.statusCode,
+          ok: res.statusCode >= 200 && res.statusCode <= 299
+        });
+      });
+    });
+    req.on("error", (error2) => {
+      reject(error2);
+    });
+    req.write(fileContent);
+    req.end();
+  });
+};
 
 // src/integration/slack-api.js
+var MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
+var ALLOWED_EXTENSIONS = /* @__PURE__ */ new Set([
+  ".txt",
+  ".log",
+  ".json",
+  ".yaml",
+  ".yml",
+  ".xml",
+  ".pdf",
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".gif",
+  ".webp",
+  ".bmp",
+  ".svg",
+  ".tif",
+  ".tiff",
+  ".doc",
+  ".docx",
+  ".xls",
+  ".xlsx",
+  ".ppt",
+  ".pptx"
+]);
 var hasErrors = (res) => !res || !res.ok;
 var buildErrorMessage = (res) => {
   return `Error! ${JSON.stringify(res)} (response)`;
 };
+var validateUploadFile = (filePath) => {
+  const extension = import_path.default.extname(filePath).toLowerCase();
+  if (!ALLOWED_EXTENSIONS.has(extension)) {
+    throw new Error(`File type not allowed: ${extension || "<none>"}`);
+  }
+  const stat2 = import_fs2.default.statSync(filePath);
+  if (!stat2.isFile()) {
+    throw new Error("Upload path must be a file");
+  }
+  if (stat2.size > MAX_UPLOAD_BYTES) {
+    throw new Error(`File too large: ${stat2.size}`);
+  }
+};
 var apiPostMessage = async (token, message) => {
-  const path = "/api/chat.postMessage";
-  const res = await post(token, path, message);
+  const path2 = "/api/chat.postMessage";
+  const res = await post(token, path2, message);
   if (hasErrors(res)) {
     throw buildErrorMessage(res);
   }
   return res;
 };
 var apiAddReaction = async (token, message) => {
-  const path = "/api/reactions.add";
-  const res = await post(token, path, message);
+  const path2 = "/api/reactions.add";
+  const res = await post(token, path2, message);
   if (hasErrors(res)) {
     throw buildErrorMessage(res);
   }
   return res;
 };
 var apiUpdateMessage = async (token, message) => {
-  const path = "/api/chat.update";
-  const res = await post(token, path, message);
+  const path2 = "/api/chat.update";
+  const res = await post(token, path2, message);
   if (hasErrors(res)) {
     throw buildErrorMessage(res);
   }
   return res;
+};
+var apiUploadFile = async (token, payload) => {
+  validateUploadFile(payload.filePath);
+  const fileContent = import_fs2.default.readFileSync(payload.filePath);
+  const filename = payload.filename || import_path.default.basename(payload.filePath);
+  const urlRes = await postForm(token, "/api/files.getUploadURLExternal", {
+    filename,
+    length: fileContent.length
+  });
+  if (hasErrors(urlRes)) {
+    throw buildErrorMessage(urlRes);
+  }
+  const { upload_url, file_id } = urlRes.response;
+  const uploadRes = await postBinary(upload_url, fileContent);
+  if (!uploadRes.ok) {
+    throw `Error uploading file content (status ${uploadRes.statusCode})`;
+  }
+  const completePayload = {
+    files: [{ id: file_id, title: payload.title || filename }],
+    channel_id: payload.channel
+  };
+  if (payload.initialComment) {
+    completePayload.initial_comment = payload.initialComment;
+  }
+  const result = await post(
+    token,
+    "/api/files.completeUploadExternal",
+    completePayload
+  );
+  if (hasErrors(result)) {
+    throw buildErrorMessage(result);
+  }
+  return result;
 };
 
 // src/util/escaper.js
@@ -34768,13 +34930,58 @@ var updateMessage = async () => {
   }
 };
 
-// src/invoke.js
+// src/upload-file/build-upload-file.js
+var buildUploadFile = (channel = "", filePath = "", filename = "", title = "", initialComment = "") => {
+  if (!channel) {
+    throw new Error("Channel must be set");
+  }
+  if (!filePath) {
+    throw new Error("File path must be set");
+  }
+  return {
+    channel,
+    filePath,
+    filename,
+    title,
+    initialComment
+  };
+};
+var build_upload_file_default = buildUploadFile;
+
+// src/upload-file/index.js
 var jsonPretty4 = (data) => JSON.stringify(data, void 0, 2);
+var uploadFile = async () => {
+  try {
+    const token = getRequired("slack-bot-user-oauth-access-token");
+    const channel = getRequired("slack-channel");
+    const filePath = getRequired("slack-upload-file-path");
+    const filename = getOptional("slack-upload-filename");
+    const title = getOptional("slack-upload-file-title");
+    const initialComment = getOptional("slack-upload-initial-comment");
+    const payload = build_upload_file_default(
+      channel,
+      filePath,
+      filename,
+      title,
+      initialComment
+    );
+    debugExtra("Upload File PAYLOAD", payload);
+    const result = await apiUploadFile(token, payload);
+    debugExtra("Upload File RESULT", result);
+    const resultAsJson = jsonPretty4(result);
+    setOutput2("slack-result", resultAsJson);
+  } catch (error2) {
+    setFailed2(jsonPretty4(error2));
+  }
+};
+
+// src/invoke.js
+var jsonPretty5 = (data) => JSON.stringify(data, void 0, 2);
 async function validateSubscription() {
   let repoPrivate;
   const eventPath = process.env.GITHUB_EVENT_PATH;
-  if (eventPath && import_fs2.default.existsSync(eventPath)) {
-    const payload = JSON.parse(import_fs2.default.readFileSync(eventPath, "utf8"));
+  if (eventPath && import_fs3.default.existsSync(eventPath)) {
+    const payload = JSON.parse(import_fs3.default.readFileSync(eventPath, "utf8"));
     repoPrivate = payload?.repository?.private;
   }
   const upstream = "archive/github-actions-slack";
@@ -34824,12 +35031,15 @@ var invoke = async () => {
       case "update-message":
         await updateMessage();
         break;
+      case "upload-file":
+        await uploadFile();
+        break;
       default:
         setFailed2("Unhandled `slack-function`: " + func);
         break;
     }
   } catch (error2) {
-    setFailed2("invoke failed:" + error2 + ":" + jsonPretty4(error2));
+    setFailed2("invoke failed:" + error2 + ":" + jsonPretty5(error2));
   }
 };
 var invoke_default = invoke;
