@@ -1,10 +1,10 @@
-const axios = require('axios');
-const fs = require('fs');
-const core = require('@actions/core');
-const context = require("./context");
-const { postMessage } = require("./message");
-const { addReaction } = require("./reaction");
-const { updateMessage } = require("./update-message");
+import axios from "axios";
+import fs from "fs";
+import * as core from "@actions/core";
+import * as context from "./context.js";
+import { postMessage } from "./message/index.js";
+import { addReaction } from "./reaction/index.js";
+import { updateMessage } from "./update-message/index.js";
 
 const jsonPretty = (data) => JSON.stringify(data, undefined, 2);
 
@@ -79,4 +79,4 @@ const invoke = async () => {
   }
 };
 
-module.exports = invoke;
+export default invoke;
