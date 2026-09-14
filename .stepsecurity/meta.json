@@ -1,0 +1,18 @@
+{
+   "schema_version": "1",
+   "onboarding_type": "copied",
+   "archived": false,
+   "maintained_action_name": "step-security/github-actions-slack",
+   "upstream_full_repo_name": "archive/github-actions-slack",
+   "action_type": "node",
+   "last_release": {
+     "tag_name": "v3.1.0",
+     "created_at": "2026-05-08T04:52:07Z",
+     "published_at": "2026-05-08T21:33:46Z"
+   },
+   "sync": {
+     "ignore_presets": [
+       "defaults_v1"
+     ]
+   }
+ }
